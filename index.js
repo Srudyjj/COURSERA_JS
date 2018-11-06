@@ -54,9 +54,8 @@ function query(collection) {
     var params = Array.prototype.slice.call(arguments, 1);
     if (params.length) {
         for (let i = 0; i < params.length; i++) {
-            _collection = params[i](_collection);
+            return _collection = params[i](_collection);
         }
-        return _collection;
     } else {
         return _collection
     }
@@ -70,7 +69,7 @@ function select() {
 
     return function select(collection) {
         return collection.map(function (row) {
-            var _result = {}
+            var _result = {};
             params.forEach(function (element) {
                 if (row[element]) {
                     _result[element] = row[element];
@@ -87,9 +86,19 @@ function select() {
  * @param {Array} values – Массив разрешённых значений
  */
 function filterIn(property, values) {
-
+    return function filterIn(collection) {
+        return _result = collection.filter(function (row) {
+            var _trigger = false;
+            values.forEach(function (value) {
+                if (row[property] === value) {
+                    _trigger = true;
+                };
+            });
+            return _trigger;
+        });
+    }
 }
 
-var result = query();
+var result = query(friends, filterIn('favoriteFruit', ['Яблоко', 'Картофель']), filterIn('favoriteFruit', ['Картофель']));
 console.log(result);
 console.log(friends);
