@@ -1,6 +1,6 @@
 var assert = require('assert');
-var parallel = require('./index');
-
+// var parallel = require('./index');
+var parallel = require('./indexPromise');
 // Пример успешного выполнения операции
 parallel(
     [
